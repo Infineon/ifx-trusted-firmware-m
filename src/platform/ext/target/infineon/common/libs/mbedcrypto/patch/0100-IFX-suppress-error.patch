@@ -1,0 +1,24 @@
+From 4dc9945819c86f17fbc4f2c764690c2ddf01a522 Wed, 12 Feb 2025 20:11:12 +0200
+From: Roman Mazurak <roman.mazurak@infineon.com>
+Date: Wed, 12 Feb 2025 20:08:29 +0200
+Subject: [PATCH] Suppress error
+
+
+It looks like MBEDTLS_PSA_ACCEL_KEY_TYPE_ECC_KEY_PAIR_IMPORT and
+MBEDTLS_PSA_ACCEL_KEY_TYPE_ECC_KEY_PAIR_EXPORT can be used independently
+
+Change-Id: Id8e9706d75857d9139c7bedac40c514458d2c375
+
+diff --git a/include/mbedtls/check_config.h b/include/mbedtls/check_config.h
+index b3c038d..33965ff 100644
+--- a/include/mbedtls/check_config.h
++++ b/include/mbedtls/check_config.h
+@@ -56,7 +56,7 @@
+     !defined(MBEDTLS_PSA_ACCEL_KEY_TYPE_ECC_KEY_PAIR_BASIC) || \
+     !defined(MBEDTLS_PSA_ACCEL_KEY_TYPE_ECC_KEY_PAIR_IMPORT) || \
+     !defined(MBEDTLS_PSA_ACCEL_KEY_TYPE_ECC_KEY_PAIR_EXPORT)
+-#error "Unsupported partial support for ECC key type acceleration, see docs/driver-only-builds.md"
++//#error "Unsupported partial support for ECC key type acceleration, see docs/driver-only-builds.md"
+ #endif /* not all of public, basic, import, export */
+ #endif /* one of public, basic, import, export */
+ 

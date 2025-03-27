@@ -1,0 +1,26 @@
+From b9c30f76fb35ddbc7a81ea425dee586cb288bb1e Thu, 13 Feb 2025 17:53:45 +0200
+From: Roman Mazurak <roman.mazurak@infineon.com>
+Date: Thu, 13 Feb 2025 17:53:24 +0200
+Subject: [PATCH] IFX: Suppress MBEDTLS_MD_C check to enable mixed acceleration config
+
+
+MBEDTLS_MD_C may be enabled by p256m driver in case of mixed
+configuration when some ECC algorithms are implemented by accelerator
+and some by p256m driver while all MD algorithms are implemented by
+accelerator.
+
+Change-Id: Ic483c028a632886e2b699258f9781d8c8e825741
+
+diff --git a/include/mbedtls/check_config.h b/include/mbedtls/check_config.h
+index 33965ff..eec2c37 100644
+--- a/include/mbedtls/check_config.h
++++ b/include/mbedtls/check_config.h
+@@ -393,7 +393,7 @@
+     !defined(MBEDTLS_MD_CAN_SHA3_256) && \
+     !defined(MBEDTLS_MD_CAN_SHA3_384) && \
+     !defined(MBEDTLS_MD_CAN_SHA3_512)
+-#error "MBEDTLS_MD_C defined, but no hash algorithm"
++//#error "MBEDTLS_MD_C defined, but no hash algorithm"
+ #endif
+ 
+ #if defined(MBEDTLS_LMS_C) &&                                          \

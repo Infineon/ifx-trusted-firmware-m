@@ -1,0 +1,26 @@
+diff --git a/COMPONENT_CAT1/mbedtls_MXCRYPTOLITE/trng_alt_mxcryptolite.c b/COMPONENT_CAT1/mbedtls_MXCRYPTOLITE/trng_alt_mxcryptolite.c
+index 3e6ec8b..135d310 100755
+--- a/COMPONENT_CAT1/mbedtls_MXCRYPTOLITE/trng_alt_mxcryptolite.c
++++ b/COMPONENT_CAT1/mbedtls_MXCRYPTOLITE/trng_alt_mxcryptolite.c
+@@ -52,12 +52,6 @@
+ #define MBEDTLS_ERR_TRNG_BAD_INPUT_DATA  (-1)
+ #define MAX_TRNG_BIT_SIZE                (32UL)
+ 
+-/* Parameter validation macros based on platform_util.h */
+-#define TRNG_VALIDATE_RET( cond )    \
+-    MBEDTLS_INTERNAL_VALIDATE_RET( cond, MBEDTLS_ERR_TRNG_BAD_INPUT_DATA )
+-#define TRNG_VALIDATE( cond )        \
+-    MBEDTLS_INTERNAL_VALIDATE( cond )
+-
+ /**
+  * \brief           Entropy poll callback for a hardware source
+  *
+@@ -77,8 +71,6 @@ int mbedtls_hardware_poll( void * data,
+     uint32_t random = 0u;
+ 
+     (void)data;
+-    TRNG_VALIDATE_RET(output != NULL);
+-    TRNG_VALIDATE_RET(olen != NULL);
+ 
+     if (CY_CRYPTOLITE_SUCCESS != Cy_Cryptolite_Trng_Init(CRYPTOLITE, NULL))
+     {
